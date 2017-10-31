@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="angular1">
+    <head>
+        <title>TODO supply a title</title>
+        <script src="angular.min.js" type="text/javascript"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            var miModulo = angular.module("angular1", []).controller(
+                    'MiControlador', ['$scope', '$http',
+                        function ($scope, $http) {                          
+                            $http({
+                                method: 'GET',
+                                url: 'http://localhost:8081/ejercicioInterfaces/json?ob=producto&op=getpage&np=1&rpp=10'
+                            }).then(function successCallback(response) {
+                                if (response.data.status == 200) {
+                                    $scope.alberto = response.data.json;
+                                } else {
+                                    $scope.error_angular = "Error en la recepción de datos";
+                                }
+                            }, function errorCallback(response) {
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                            });
+                        }])
+        </script>        
+    </head>
+    <body ng-controller="MiControlador">
+        <h1>Prueba de Angular: tabla de productos</h1>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Existencias</th>
+                <th>Precio</th>
+                <th>Nombre</th>       
+            </tr>
+            <tr ng-repeat="p in alberto">
+                <td>{{p.id}}</td>
+                <td>{{p.existencias}}</td>
+                <td>{{p.precio}}</td>
+                <td>{{p.nombre}}</td>
+            </tr>                                    
+        </table>                                
+        <div ng-model="error_angular"></div>                                        
+    </body>
+</html>
