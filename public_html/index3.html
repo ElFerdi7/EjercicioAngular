@@ -2,19 +2,22 @@
 <html ng-app="angular1">
     <head>
         <title>TODO supply a title</title>
-        <script src="angular.min.js" type="text/javascript"></script>
+        <script src="angular.min.js" type="text/javascript">
+        </script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body ng-controller="MiControlador">
         <h1>Prueba de Angular: tabla de usuarios</h1>
-        <input type="submit" value="Mostrar usuario" ng-click="traerUsuario();mostrarUsuario = true" />
+        <input type="submit" value="Mostrar usuario" ng-click="traerUsuario();mostrarUsuario = true; myStyle={color:'red'}" />
         <input type="submit" value="Ocultar usuario" ng-click="mostrarUsuario = false" />
         <input type="text" name="Id de usuario" value="" ng-model="idusuario"/>
         <input type="submit" value="Mostrar tabla de usuarios" ng-click="traerTabla();mostrarTabla = true" />
         <input type="submit" value="Ocultar tabla de usuarios" ng-click="mostrarTabla = false" />
         <input type="text" name="Pagina" value="" ng-model="pagina"/>
-        <table ng-show="mostrarUsuario">
+        
+        <!-- Añadida directiva ng-style para poner css -->
+        <table ng-show="mostrarUsuario" ng-style="myStyle">
             <tr>
                 <th>id</th>
                 <th>dni</th>
@@ -24,12 +27,13 @@
                 <th>login</th>
             </tr>
             <tr>
-                <td>{{oUsuario.id}}</td>
-                <td>{{oUsuario.dni}}</td>
-                <td>{{oUsuario.nombre}}</td>
-                <td>{{oUsuario.primer_apellido}}</td>
-                <td>{{oUsuario.segundo_apellido}}</td>
-                <td>{{oUsuario.login}}</td>
+                <!-- Añadida directiva ng-bind para pasar los datos -->
+                <td ng-bind="oUsuario.id"></td>
+                <td ng-bind="oUsuario.dni"></td>
+                <td ng-bind="oUsuario.nombre"></td>
+                <td ng-bind="oUsuario.primer_apellido"></td>
+                <td ng-bind="oUsuario.segundo_apellido"></td>
+                <td ng-bind="oUsuario.login"></td>
             </tr>
         </table>
         <table  ng-show="mostrarTabla">
@@ -41,10 +45,12 @@
                 <th>segundo_apellido</th>
                 <th>login</th>
             </tr>
-            <tr ng-repeat="p in arrUsuarios">
+             <!-- Añadido filtro para ordenar por el dni -->
+            <tr ng-repeat="p in arrUsuarios | orderBy : 'dni'">
                 <td>{{p.id}}</td>
                 <td>{{p.dni}}</td>
-                <td>{{p.nombre}}</td>
+                <!-- Añadido filtro de mayúscula -->
+                <td>{{p.nombre | uppercase}}</td>
                 <td>{{p.primer_apellido}}</td>
                 <td>{{p.segundo_apellido}}</td>
                 <td>{{p.login}}</td>

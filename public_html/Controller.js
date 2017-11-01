@@ -42,6 +42,7 @@ miModulo.controller('MiControlador', ['$scope', '$http',
                 }).then(function successCallback(response) {
                     if (response.data.status == 200) {
                         $scope.oUsuario = response.data.json;
+                        
                     } else {
                         $scope.error_angular = "Error en la recepción de datos";
                     }
