@@ -30,18 +30,18 @@ miModulo.config(['$httpProvider', function ($httpProvider) {
     }]);
 miModulo.controller('MiControlador', ['$scope', '$http',
     function ($scope, $http) {
-        $scope.mostrarUsuario = false;
+        $scope.mostrarProducto = false;
         $scope.mostrarTabla = false;
-        $scope.idusuario = 0;
+        $scope.idproducto = 1;
         $scope.pagina = 1;
-        $scope.traerUsuario = function () {
-            if ($scope.idusuario > 0) {
+        $scope.traerProducto = function () {
+            if ($scope.idproducto > 0) {
                 $http({
                     method: 'GET',
-                    url: 'http://localhost:8081/ejercicioInterfaces/json?ob=usuario&op=get&id=' + $scope.idusuario
+                    url: 'http://localhost:8081/ejercicioInterfaces/json?ob=producto&op=get&id=' + $scope.idproducto
                 }).then(function successCallback(response) {
                     if (response.data.status == 200) {
-                        $scope.oUsuario = response.data.json;
+                        $scope.oProducto = response.data.json;
                         
                     } else {
                         $scope.error_angular = "Error en la recepción de datos";
@@ -54,10 +54,10 @@ miModulo.controller('MiControlador', ['$scope', '$http',
         $scope.traerTabla = function () {
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/ejercicioInterfaces/json?ob=usuario&op=getpage&rpp=3&np=' + $scope.pagina
+                url: 'http://localhost:8081/ejercicioInterfaces/json?ob=producto&op=getpage&rpp=3&np=' + $scope.pagina
             }).then(function successCallback(response) {
                 if (response.data.status == 200) {
-                    $scope.arrUsuarios = response.data.json;
+                    $scope.arrProductos = response.data.json;
                 } else {
                     $scope.error_angular = "Error en la recepción de datos";
                 }

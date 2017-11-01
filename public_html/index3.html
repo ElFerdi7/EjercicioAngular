@@ -9,51 +9,44 @@
     </head>
     <body ng-controller="MiControlador">
         <h1>Prueba de Angular: tabla de usuarios</h1>
-        <input type="submit" value="Mostrar usuario" ng-click="traerUsuario();mostrarUsuario = true; myStyle={color:'red'}" />
-        <input type="submit" value="Ocultar usuario" ng-click="mostrarUsuario = false" />
-        <input type="text" name="Id de usuario" value="" ng-model="idusuario"/>
-        <input type="submit" value="Mostrar tabla de usuarios" ng-click="traerTabla();mostrarTabla = true" />
-        <input type="submit" value="Ocultar tabla de usuarios" ng-click="mostrarTabla = false" />
+        <input type="submit" value="Mostrar producto" ng-click="traerProducto();mostrarProducto = true; myStyle={color:'red'}" />
+        <input type="submit" value="Ocultar producto" ng-click="mostrarProducto = false" />
+        <input type="text" name="Id de producto" value="" ng-model="idproducto"/>
+        <input type="submit" value="Mostrar tabla de productos" ng-click="traerTabla();mostrarTabla = true" />
+        <input type="submit" value="Ocultar tabla de productos" ng-click="mostrarTabla = false" />
         <input type="text" name="Pagina" value="" ng-model="pagina"/>
         
         <!-- Añadida directiva ng-style para poner css -->
-        <table ng-show="mostrarUsuario" ng-style="myStyle">
+        <table ng-show="mostrarProducto" ng-style="myStyle">
             <tr>
-                <th>id</th>
-                <th>dni</th>
-                <th>nombre</th>
-                <th>primer_apellido</th>
-                <th>segundo_apellido</th>
-                <th>login</th>
+                <th>id</th> 
+                <th>Existencias</th>
+                <th>Precio</th>
+                <th>Nombre</th>
             </tr>
             <tr>
                 <!-- Añadida directiva ng-bind para pasar los datos -->
-                <td ng-bind="oUsuario.id"></td>
-                <td ng-bind="oUsuario.dni"></td>
-                <td ng-bind="oUsuario.nombre"></td>
-                <td ng-bind="oUsuario.primer_apellido"></td>
-                <td ng-bind="oUsuario.segundo_apellido"></td>
-                <td ng-bind="oUsuario.login"></td>
+                <td ng-bind="oProducto.id"></td>
+                <td ng-bind="oProducto.existencias"></td>
+                <td ng-bind="oProducto.precio"></td>
+                <td ng-bind="oProducto.nombre"></td>
+                
             </tr>
         </table>
         <table  ng-show="mostrarTabla">
             <tr>
                 <th>id</th>
-                <th>dni</th>
-                <th>nombre</th>
-                <th>primer_apellido</th>
-                <th>segundo_apellido</th>
-                <th>login</th>
+                <th>Existencias</th>
+                <th>Precio</th>
+                <th>Nombre</th>
             </tr>
              <!-- Añadido filtro para ordenar por el dni -->
-            <tr ng-repeat="p in arrUsuarios | orderBy : 'dni'">
+            <tr ng-repeat="p in arrProductos | orderBy : 'existencias'">
                 <td>{{p.id}}</td>
-                <td>{{p.dni}}</td>
+                <td>{{p.existencias}}</td>
                 <!-- Añadido filtro de mayúscula -->
-                <td>{{p.nombre | uppercase}}</td>
-                <td>{{p.primer_apellido}}</td>
-                <td>{{p.segundo_apellido}}</td>
-                <td>{{p.login}}</td>
+                <td>{{p.precio | uppercase}}</td>
+                <td>{{p.nombre}}</td>
             </tr>
         </table>
         <div ng-model="error_angular"></div>
